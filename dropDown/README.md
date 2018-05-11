@@ -1,14 +1,15 @@
 # dropdown
 ## Basic project setup
 
-#### Improve by using jQuery with mark.js
+#### Dropdown list improved by using jQuery with mark.js
 Open dropdown.html
 
-#### dropdown list with ajax and search filter version2
+#### Dropdown list with ajax and search filter version2
 Open dropdownVer2.html 
 
 #### e2e Protractor test
 Used Protractor for e2e test
+test.gif
 Test screenshot url: http://recordit.co/kIZMXZLDe3
 
 ```
