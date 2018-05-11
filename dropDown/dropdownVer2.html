@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/g/jquery@2.2.4,mark.js@8.6.0(jquery.mark.min.js)"></script>
+  <style>
+  .loadMore {
+    background: #FFDAB9;
+  }
+
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropbtn:hover,
+  .dropbtn:focus {
+    background-color: #3e8e41;
+  }
+
+  #myInput {
+    border-box: box-sizing;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #myInput:focus {
+    outline: 3px solid #ddd;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown a:hover {
+    background-color: #ddd
+  }
+
+  .show {
+    display: block;
+  }
+
+  a span {
+    color: #FF4500;
+  }
+  </style>
+</head>
+
+<body>
+  <h2>Search/Filter Dropdown with Ajax</h2>
+  <p>Click on the button to open the dropdown menu, and use the input field to search for a specific item. Click on Load more to get data by Ajax</p>
+  <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+    <input type="text" placeholder="Search..." id="myInput">
+    <div id="myDropdown" class="dropdown-content">
+      <a>Chengdu</a>
+      <a>Chongqing</a>
+      <a href=#Nanjing>Nanjing</a>
+      <a>Beijing</a>
+      <a>Shangqiu</a>
+      <a>Changchun</a>
+      <a>Wulimuqi</a>
+      <a class="loadMore">Load more...</a>
+    </div>
+  </div>
+  <script>
+  //dropdown
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+  //Ajax
+  $('.loadMore').click(function() {
+    $.ajax({
+      type: "GET",
+      url: "https://api.meetup.com/2/cities",
+      dataType: 'jsonp',
+      success: function(res) {
+        $.each(res.results, function(data, value) {
+          $(".loadMore").hide();
+          $("#myDropdown").append($("<a>").text(value.city));
+        })
+      }
+    });
+  });
+
+  //highlight
+  $(document).ready(function() {
+    var highlight = function(string) {
+      $("#myDropdown a.match").each(function() {
+        var matchStart = $(this).text().toLowerCase().indexOf("" + string.toLowerCase() + "");
+        var matchEnd = matchStart + string.length - 1;
+        var beforeMatch = $(this).text().slice(0, matchStart);
+        var matchText = $(this).text().slice(matchStart, matchEnd + 1);
+        var afterMatch = $(this).text().slice(matchEnd + 1);
+        $(this).html(beforeMatch + "<span>" + matchText + "</span>" + afterMatch);
+      });
+    };
+
+    //filter
+    $("#myInput").on("keyup click input", function() {
+      if (this.value.length > 0) {
+        $("#myDropdown a").removeClass("match").hide().filter(function() {
+          return $(this).text().toLowerCase().indexOf($("#myInput").val().toLowerCase()) != -1;
+        }).addClass("match").show();
+        highlight(this.value);
+        $("#myDropdown").show();
+      } else {
+        $("#myDropdown, #myDropdown a").removeClass("match").hide();
+      }
+    });
+
+  });
+  </script>
+</body>
+</html>
