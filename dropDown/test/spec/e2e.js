@@ -3,7 +3,7 @@ describe("dropDown e2e test", function() {
 it('Go to main page', function() {
   browser.driver.ignoreSynchronization = true
   //need to change path for test
-  browser.driver.get('file:///Users/weit/Desktop/dropdownJqBt.html');
+  browser.driver.get('file:///Users/weit/Desktop/dropdown.html');
   expect(browser.driver.getCurrentUrl()).toContain('dropdown')
 });
 
