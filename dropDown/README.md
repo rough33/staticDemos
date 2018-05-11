@@ -8,8 +8,7 @@ Open dropdown.html
 Open dropdownVer2.html 
 
 #### e2e Protractor test
-Used Protractor for e2e test
-test.gif
+Used Protractor for e2e test.
 Test screenshot url: http://recordit.co/kIZMXZLDe3
 
 ```
