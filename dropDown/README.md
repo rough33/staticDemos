@@ -10,6 +10,7 @@ Open dropdownVer2.html
 #### e2e Protractor test
 Used Protractor for e2e test.
 Test screenshot url: http://recordit.co/kIZMXZLDe3
+![image](https://github.com/rough33/staticDemos/blob/master/dropDown/test/test.gif)
 ```
 npm install -g protractor
 webdriver-manager update
